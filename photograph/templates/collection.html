@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+
+{% load markdown %}
+
+{% block content %}
+<h1>{{ collection.name }}</h1>
+
+{{ collection.description|md }}
+
+<p><a href="{% url 'home' %}">Return to homepage</a></p>
+{% endblock %}
