@@ -11,7 +11,7 @@ Inspirations:
 Perform migrations
 
 ```sh
-python manage.py migrate
+$ python manage.py migrate
 ```
 
 Create superuser:
