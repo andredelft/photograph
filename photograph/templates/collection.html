@@ -7,5 +7,11 @@
 
 {{ collection.description|md }}
 
+<div class="images">
+{% for photo in collection.photo_set.all %}
+  <img src="{{ photo.file.url }}" width="400">
+{% endfor %}
+</div>
+
 <p><a href="{% url 'home' %}">Return to homepage</a></p>
 {% endblock %}

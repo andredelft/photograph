@@ -14,4 +14,8 @@ class Collection(models.Model):
 
 class Photo(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    file = models.ImageField()
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
