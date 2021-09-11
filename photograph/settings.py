@@ -26,7 +26,7 @@ if not SECRET_KEY:
     else:
         SECRET_KEY = "----secret-dev-key----"
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'fridusfotografeert.herokuapp.com']
 
 
 # Application definition
