@@ -13,11 +13,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from distutils.util import strtobool
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = int(os.environ.get('DEBUG', 1))
+DEBUG = strtobool(os.environ.get('DEBUG', '1'))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
