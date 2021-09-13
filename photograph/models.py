@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from cloudinary.models import CloudinaryField
 
 
 class Collection(models.Model):
@@ -14,10 +15,15 @@ class Collection(models.Model):
 
 
 class Photo(models.Model):
-    file = models.ImageField()
-    name = models.CharField(max_length=50)
+    file = CloudinaryField('image')
+    name = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        try:
+            public_id = self.image.public_id
+        except AttributeError:
+            public_id = ''
+
+        return f'Photo {self.name}:{public_id}'
