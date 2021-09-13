@@ -9,7 +9,7 @@ class Collection(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
     date_from = models.DateField()
-    date_to = models.DateField(blank=True)
+    date_to = models.DateField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Photo(models.Model):
     def preview(self):
         return mark_safe(
             self.file.image(transformation=[
-                {'height': 150, 'width': 150, 'crop': 'thumb'}
+                {'height': 150, 'width': 150, 'crop': 'thumb', 'gravity': 'face'}
             ])
         )
 
