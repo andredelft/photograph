@@ -2,6 +2,7 @@ body {
   font-family: 'Nunito';
   background-color: #4A646C;
   color: white;
+  -webkit-text-size-adjust: 100%;
 }
 
 .navbar {
