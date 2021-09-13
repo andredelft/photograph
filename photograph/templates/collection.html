@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 
 {% load markdown %}
+{% load cloudinary %}
 
 {% block content %}
 <h1>{{ collection.name }}</h1>
@@ -9,7 +10,7 @@
 
 <div class="images">
 {% for photo in collection.photo_set.all %}
-  <img src="{{ photo.file.url }}" width="400">
+  {% cloudinary photo.file width=300 height=300 crop="fill" gravity="face" %}
 {% endfor %}
 </div>
 
