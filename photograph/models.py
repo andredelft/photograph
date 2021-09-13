@@ -1,13 +1,15 @@
-from django.db import models
 from autoslug import AutoSlugField
 from cloudinary.models import CloudinaryField
+
+from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class Collection(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True)
     date_from = models.DateField()
-    date_to = models.DateField(blank=True, null=True)
+    date_to = models.DateField(blank=True)
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
@@ -15,15 +17,19 @@ class Collection(models.Model):
 
 
 class Photo(models.Model):
-    file = CloudinaryField('image')
-    name = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    file = CloudinaryField()
+    description = models.TextField(blank=True)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+
+    def preview(self):
+        return mark_safe(
+            self.file.image(transformation=[
+                {'height': 150, 'width': 150, 'crop': 'thumb'}
+            ])
+        )
 
     def __str__(self):
         try:
-            public_id = self.image.public_id
+            return self.file.public_id
         except AttributeError:
-            public_id = ''
-
-        return f'Photo {self.name}:{public_id}'
+            return 'Photo (ID unknown)'

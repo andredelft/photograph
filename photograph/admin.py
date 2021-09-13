@@ -5,6 +5,12 @@ from .models import Collection, Photo
 
 class PhotoAdmin(admin.TabularInline):
     model = Photo
+    readonly_fields = ('preview',)
+    fields = (
+        'preview',
+        'file',
+        'description'
+    )
 
 
 @admin.register(Collection)
