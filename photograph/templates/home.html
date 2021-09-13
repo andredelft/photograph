@@ -1,10 +1,13 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<h1>Collections</h1>
-<ul>
+<ul class="collection-list">
 {% for collection in collections %}
-  <li><a href="{% url 'collection' slug=collection.slug %}">{{ collection.name }}</a></li>
+  <li>
+    <a href="{% url 'collection' slug=collection.slug %}" class="collection-link">
+      {{ collection.name }}
+    </a>
+  </li>
 {% empty %}
   <i>No collections found...</i>
 {% endfor %}

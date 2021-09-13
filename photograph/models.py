@@ -24,7 +24,7 @@ class Photo(models.Model):
     def preview(self):
         return mark_safe(
             self.file.image(transformation=[
-                {'height': 150, 'width': 150, 'crop': 'thumb', 'gravity': 'face'}
+                {'height': 150, 'width': 150, 'crop': 'thumb'}
             ])
         )
 

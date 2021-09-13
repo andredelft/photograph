@@ -4,15 +4,20 @@
 {% load cloudinary %}
 
 {% block content %}
-<h1>{{ collection.name }}</h1>
+<h1 class="section-title">{{ collection.name }}</h1>
+
+<div class="collection-date">{{ collection.date_from }}{% if collection.date_to %} t/m {{ collection.date_to }}{% endif %}</div>
 
 {{ collection.description|md }}
 
-<div class="images">
+<p><a href="{% url 'home' %}">Terug naar homepagina</a></p>
+
+<div class="collection-photos">
 {% for photo in collection.photo_set.all %}
-  {% cloudinary photo.file width=300 height=300 crop="fill" gravity="face" %}
+  <div class="photo-container">
+    {% cloudinary photo.file width=600 height=600 crop="fill" gravity="face" %}
+  </div>
 {% endfor %}
 </div>
 
-<p><a href="{% url 'home' %}">Return to homepage</a></p>
 {% endblock %}
