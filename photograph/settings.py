@@ -11,25 +11,24 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+from decouple import config, UndefinedValueError
 import dj_database_url
-from distutils.util import strtobool
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = strtobool(os.environ.get('DEBUG', '1'))
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-if not SECRET_KEY:
+try:
+    SECRET_KEY = config('SECRET_KEY')
+except UndefinedValueError:
     if not DEBUG:
         raise RuntimeError("Missing SECRET_KEY environment variable")
     else:
         SECRET_KEY = "----secret-dev-key----"
 
-ALLOWED_HOSTS = ['localhost', 'fridusfotografeert.herokuapp.com']
-
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -78,13 +77,15 @@ WSGI_APPLICATION = 'photograph.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if os.environ.get('DATABASE_URL'):
-    DATABASE_DEFAULT_CONFIG = dj_database_url.config(conn_max_age=600, ssl_require=True)
-else:
+try:
+    config('DATABASE_URL')
+except UndefinedValueError:
     DATABASE_DEFAULT_CONFIG = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+else:
+    DATABASE_DEFAULT_CONFIG = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 DATABASES = {
     'default': DATABASE_DEFAULT_CONFIG
@@ -127,15 +128,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
-STATIC_ROOT = BASE_DIR / 'static'
-STATIC_URL = '/static/'
+django_heroku.settings(locals())
