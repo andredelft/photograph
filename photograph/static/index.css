@@ -72,6 +72,7 @@ a:hover {
 
 .collection-photos {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .photo-container {
