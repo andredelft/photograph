@@ -3,9 +3,10 @@
 {% block content %}
 <ul class="collection-list">
 {% for collection in collections %}
-  <li>
+  <li class="collection-name">
     <a href="{% url 'collection' slug=collection.slug %}" class="collection-link">
       {{ collection.name }}
+      <span class="collection-date">{{ collection.date_from|date:"d.m.y" }}</span>
     </a>
   </li>
 {% empty %}

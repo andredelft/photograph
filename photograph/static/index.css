@@ -10,6 +10,7 @@ body {
  position: sticky;
  position: -webkit-sticky;
  top: 0px;
+ z-index: 5;
 }
 
 .navbar-brand > a, .navbar-brand > a:visited {
@@ -39,18 +40,23 @@ body {
   list-style: none;
 }
 
-.collection-list > li {
+.collection-name {
   font-family: 'Playfair Display';
   font-style: italic;
   font-size: 3.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.collection-list > li > a {
+.collection-name.collection-name-sm {
+  font-size: 2.5rem;
+}
+
+.collection-list a {
   padding: 5px 10px;
   border-radius: 10px;
 }
 
-.collection-list > li > a:hover {
+.collection-list a:hover {
   background: rgba(0, 0, 0, 0.2);
 }
 
@@ -58,6 +64,16 @@ body {
   font-family: 'Playfair Display';
   margin-bottom: 1rem;
   font-size: 1.5rem;
+}
+
+.collection-list .collection-date {
+  color: white;
+  font-style: normal;
+  transition: 0.3s;
+}
+
+.collection-list a:hover .collection-date {
+  color: #BEBEBE;
 }
 
 a, a:visited {

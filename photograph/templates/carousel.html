@@ -5,19 +5,27 @@
 {% block content_container_class %}{% endblock %}
 
 {% block content %}
-<div id="carouselExampleFade" class="carousel slide" data-bs-ride="carousel" style="width: 100%; height: calc(100vh - 120px);">
-  <div class="carousel-inner" style="width: 100%; height: calc(100vh - 120px);">
-    {% for photo in collection.photo_set.all %}
-    <div class="carousel-item {% if forloop.first %}active{% endif %}" style="width: 100%; height: calc(100vh - 120px);">
+<div class="container">
+  <h1 class="collection-name collection-name-sm">
+    <a href="{% url 'collection' collection.slug %}">{{ collection.name }}</a>
+  </h1>
+</div>
+<div id="collectionCarousel" class="carousel slide" data-bs-ride="carousel" style="width: 100%; height: calc(100vh - 140px); min-height: 400px;">
+  <div class="carousel-inner" style="width: 100%; height: 100%;">
+    {% for photo in collection_photos %}
+    <div 
+      class="carousel-item {% if forloop.counter == start_carousel %}active{% endif %}" 
+      style="width: 100%; height: 100%;"
+    >
       {% cloudinary photo.file width=1500 height=1000 crop="limit" class="collection-photo" %}
     </div>
     {% endfor %}
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#collectionCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#collectionCarousel" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
