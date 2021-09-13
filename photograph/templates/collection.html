@@ -6,7 +6,12 @@
 {% block content %}
 <h1 class="section-title">{{ collection.name }}</h1>
 
-<div class="collection-date">{{ collection.date_from }}{% if collection.date_to %} t/m {{ collection.date_to }}{% endif %}</div>
+<div class="collection-date">
+  {{ collection.date_from }}
+  {% if collection.date_to %} 
+    t/m {{ collection.date_to }}
+  {% endif %}
+</div>
 
 {{ collection.description|md }}
 

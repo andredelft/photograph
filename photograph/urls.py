@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('<str:slug>/', views.collection, name='collection'),
+    path('<str:slug>/carousel/', views.carousel, name='carousel')
 ]

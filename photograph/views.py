@@ -14,3 +14,10 @@ def collection(request, slug):
     return render(request, 'collection.html', context={
         'collection': collection_obj
     })
+
+
+def carousel(request, slug):
+    collection_obj = get_object_or_404(Collection, slug=slug)
+    return render(request, 'carousel.html', context={
+        'collection': collection_obj
+    })

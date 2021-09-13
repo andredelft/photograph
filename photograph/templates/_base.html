@@ -18,7 +18,7 @@
         <a href="{% url 'home' %}">Fridus fotografeert</a>
       </span>
     </nav>
-    <div class="container content">
+    <div class="{% block content_container_class %}container{% endblock %} content">
       {% block content %}{% endblock %}
     </div>
   </body>
